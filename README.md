@@ -6,3 +6,5 @@ Se puede adaptar fácilmente a otras regiones y/o trámites.
 
 Genera un archivo de texto plano donde las columnas son separadas usando $separator
 
+Initially createde by Sebastian Wilson
+Modified by Felipe Alfonso González

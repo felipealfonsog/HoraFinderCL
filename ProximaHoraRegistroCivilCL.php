@@ -1,5 +1,12 @@
 <?php
 /*
+Initially createde by Sebastian Wilson
+Modified by Felipe Alfonso González
+
+-----
+
+
+
   Ayuda a buscar la próxima hora disponible en el Registro Civil.
   Genera un archivo de texto plano donde las columnas son separadas usando $separator .
   Este archivo puede ser cargado posteriormente en Excel, y al ordenar por la columna 'fecha_hora'
