@@ -62,7 +62,7 @@ print 'comuna';
 foreach( $hour_structure as $item_name ) print $separator . $item_name;
 
 // Buscamos todas las comunas de la región
-$cities_info    =   file_get_contents( $base_url . 'comunas/' . $region );
+$cities_info    =   file_get_contents( $base_url . '/comunas/' . $region );
 $json_cities    =   json_decode( $cities_info, true, 512, JSON_BIGINT_AS_STRING );
 
 if( !$json_cities ) exit( 'No se pudo obtener la lista de comunas' );
