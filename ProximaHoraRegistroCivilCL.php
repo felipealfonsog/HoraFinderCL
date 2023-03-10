@@ -14,7 +14,10 @@ $start          =   time();
 
 $service_id     =   6; // Código del trámite
 $region         =   13; // Metropolitana
-$base_url       =   'https://agenda.qa.registrocivil.cl/api/backend/';
+//json antiguo
+// $base_url       =   'https://agenda.qa.registrocivil.cl/api/backend/';
+// API con json ok en url  
+$base_url       =   'https://agenda.registrocivil.cl/api/backend/comunas/13';
 $separator      =   '|';
 
 $hour_structure =   array(
@@ -33,8 +36,12 @@ print 'comuna';
 foreach( $hour_structure as $item_name ) print $separator . $item_name;
 
 // Buscamos todas las comunas de la región
-$cities_info    =   file_get_contents( $base_url . 'comunas/' . $region );
+
+//$cities_info    =   file_get_contents( $base_url. 'comunas/'. $region );
+$cities_info    =   file_get_contents($base_url);
 $json_cities    =   json_decode( $cities_info, true, 512, JSON_BIGINT_AS_STRING );
+
+
 
 if( !$json_cities ) exit( 'No se pudo obtener la lista de comunas' );
 
@@ -43,7 +50,7 @@ foreach( $json_cities as $city ){
     $city_name      =   $city['nombre_comuna'];
 
     // Buscamos las oficinas dentro de la comuna donde se puede realizar el trámite
-    $offices_info   =   file_get_contents( $base_url . 'oficinas/' . $city_id . '/' . $service_id );
+    $offices_info   =   file_get_contents( $base_url . '/oficinas/' . $city_id . '/' . $service_id );
     $json_offices   =   json_decode( $offices_info, true, 512, JSON_BIGINT_AS_STRING );
 
     if( !$json_offices || $json_offices['code'] < 1 ) continue;
@@ -52,7 +59,7 @@ foreach( $json_cities as $city ){
         $office_id      =   $office['codigo_oficina'];
 
         // Revisamos las horas disponibles
-        $hours_info     =   file_get_contents( $base_url . 'horas/' . $office_id . '/2/' . $service_id );
+        $hours_info     =   file_get_contents( $base_url . /'horas/' . $office_id . '/2/' . $service_id );
         $json_hours     =   json_decode( $hours_info, true, 512, JSON_BIGINT_AS_STRING );
 
         if( !$json_hours || $json_hours['code'] < 1 ) continue;
@@ -65,6 +72,6 @@ foreach( $json_cities as $city ){
     }
 }
 
-print PHP_EOL . 'FIN. Tiempo total: ' . ( time() - $start ) . ' segundos.' . PHP_EOL;
+print PHP_EOL . 'FIN. Tiempo total: ' . ( time() - $start ) . ' ssegundos.' . PHP_EOL;
 
 ?>
